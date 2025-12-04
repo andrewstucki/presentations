@@ -4,7 +4,7 @@ Since the 25.3.x chart has not yet been released for the operator. This leverage
 
 ## 0: Setup
 
-Run `./setup.sh`, after the initial cluster brokers get to a `Running` state, run `./fix.sh` as we still have a flaky bug in how the bootstrap-user gets set for clusters with SASL enabled on them. That ensures everything is fully functional in the operator.
+Run `./setup.sh`, after the initial cluster brokers get to a `Running` state, run `./fix.sh` as I've run into a rare, flaky bug still in how the bootstrap-user password gets set for clusters with SASL enabled on them. In general it shouldn't be needed, and while it's been ages since I've seen this happen in CI, I've seen it happen locally on occasion, especially when provisioning multiple redpanda clusters simultaneously (slowness?). The script just ensures everything is fully functional in the operator for the demo so things don't accidentally go bad.
 
 ## 1: Console CRDs
 
