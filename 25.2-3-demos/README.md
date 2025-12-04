@@ -40,6 +40,7 @@ Apply and see role in cluster:
 
 ```bash
 kubectl apply -f manifests/03-role.yaml
+kubectl get redpandarole -n redpanda-system
 kubectl exec -it -n redpanda-system redpanda-0 -c redpanda -- rpk security role list
 kubectl exec -it -n redpanda-system redpanda-0 -c redpanda -- rpk security role describe admin
 ```
