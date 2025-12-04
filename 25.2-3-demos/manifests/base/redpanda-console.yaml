@@ -28,9 +28,6 @@ spec:
           oidc:
             enabled: false
       console:
-        kafka:
-          sasl:
-            enabled: true
         login:
           plain:
             enabled: true
