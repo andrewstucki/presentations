@@ -1,0 +1,29 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: ShadowLink
+metadata:
+  name: mirror
+  namespace: redpanda-system
+spec:
+  shadowCluster:
+    clusterRef:
+      name: redpanda-shadow
+  sourceCluster:
+    staticConfiguration:
+      kafka:
+        brokers:
+        - redpanda-0.redpanda.redpanda-system.svc.cluster.local.:9093
+        tls:
+          caCertSecretRef:
+            name: "redpanda-default-cert"
+            key: "ca.crt"
+        sasl:
+          mechanism: SCRAM-SHA-512
+          username: superuser
+          passwordSecretRef:
+            name: password
+            key: password
+  topicMetadataSyncOptions:
+    autoCreateShadowTopicFilters:
+      - name: topic
+        filterType: include
+        patternType: literal

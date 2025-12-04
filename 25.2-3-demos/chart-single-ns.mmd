@@ -1,0 +1,36 @@
+%%{ init: { "theme": "neutral" } }%%
+flowchart TD
+    %% Style definitions
+    classDef ns fill:#F2F7FF,stroke:#4C84FF,stroke-width:2px,color:#1A1A1A;
+    classDef operator fill:#E8F8F5,stroke:#1ABC9C,stroke-width:2px,color:#1A1A1A;
+    classDef res fill:#FFF7E6,stroke:#F39C12,stroke-width:2px,color:#1A1A1A;
+    classDef cr fill:#FEF0F0,stroke:#E74C3C,stroke-width:2px,color:#1A1A1A;
+
+    %% Namespace
+    subgraph NS["Operator Namespace"]
+    class NS ns;
+
+        %% Operator
+        subgraph OPD["Deployment"]
+        class OPD operator;
+            OP(["Operator Pod"])
+        end
+
+        %% Resources
+        subgraph RS["Resources"]
+        class RS res;
+
+            CRD(["Redpanda"])
+            class CRD cr;
+
+            SS["StatefulSet"]
+            SVC["Service"]
+            CM["..."]
+        end
+    end
+
+    %% Relationships
+    OP <-- "reconciles" --> CRD
+    OP -- "manages" --> SS
+    OP -- "manages" --> SVC
+    OP -- "manages" --> CM

@@ -1,0 +1,53 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: Console
+metadata:
+  name: static
+  namespace: redpanda-system
+spec:
+  cluster:
+    staticConfiguration:
+      kafka:
+        brokers:
+        - redpanda-0.redpanda.redpanda-system.svc.cluster.local.:9093
+        tls:
+          caCert:
+            secretKeyRef:
+              name: "redpanda-default-cert"
+              key: "ca.crt"
+        sasl:
+          mechanism: SCRAM-SHA-512
+          username: superuser
+          passwordSecretRef:
+            name: password
+            key: password
+      admin:
+        urls:
+        - https://redpanda-0.redpanda.redpanda-system.svc.cluster.local.:9644
+        tls:
+          caCert:
+            secretKeyRef:
+              name: "redpanda-default-cert"
+              key: "ca.crt"
+        sasl:
+          mechanism: SCRAM-SHA-512
+          username: superuser
+          passwordSecretRef:
+            name: password
+            key: password
+      schemaRegistry:
+        urls:
+        - https://redpanda-0.redpanda.redpanda-system.svc.cluster.local.:8081
+        tls:
+          caCert:
+            secretKeyRef:
+              name: "redpanda-default-cert"
+              key: "ca.crt"
+        sasl:
+          mechanism: SCRAM-SHA-512
+          username: superuser
+          passwordSecretRef:
+            name: password
+            key: password
+  config:
+    auditLog:
+      enabled: true

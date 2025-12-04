@@ -1,0 +1,11 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: Topic
+metadata:
+  name: topic
+  namespace: redpanda-system
+spec:
+  cluster:
+    clusterRef:
+      name: redpanda
+  partitions: 1
+  replicationFactor: 1

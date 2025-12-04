@@ -1,0 +1,50 @@
+%%{ init: { "theme": "neutral" } }%%
+flowchart
+    %% Style definitions
+    classDef ns fill:#F2F7FF,stroke:#4C84FF,stroke-width:2px,color:#1A1A1A;
+    classDef operator fill:#E8F8F5,stroke:#1ABC9C,stroke-width:2px,color:#1A1A1A;
+    classDef res fill:#FFF7E6,stroke:#F39C12,stroke-width:2px,color:#1A1A1A;
+    classDef cr fill:#FEF0F0,stroke:#E74C3C,stroke-width:2px,color:#1A1A1A;
+
+    %% Operator Namespace
+    subgraph OP_NS["Operator Namespace"]
+    class OP_NS ns;
+
+        subgraph OPD["Deployment"]
+        class OPD operator;
+            OP(["Operator Pod"])
+        end
+    end
+
+    %% Watched Namespace B
+    subgraph NS_B["Namespace B"]
+    class NS_B ns;
+
+        B_CR1(["Redpanda"])
+        class B_CR1 cr;
+        B_SS["StatefulSet"]
+        B_SVC["Service"]
+        B_CM["..."]
+    end
+
+    %% Watched Namespace A
+    subgraph NS_A["Namespace A"]
+    class NS_A ns;
+
+        A_CR1(["Redpanda"])
+        class A_CR1 cr;
+        A_SS["StatefulSet"]
+        A_SVC["Service"]
+        A_CM["..."]
+    end
+
+
+    %% Watch & Reconcile Relationships
+    OP <-- "reconciles" --> A_CR1
+    OP -- "manages" --> A_SS
+    OP -- "manages" --> A_SVC
+    OP -- "manages" --> A_CM
+    OP <-- "reconciles" --> B_CR1
+    OP -- "manages" --> B_SS
+    OP -- "manages" --> B_SVC
+    OP -- "manages" --> B_CM

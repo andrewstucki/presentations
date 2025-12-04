@@ -1,0 +1,25 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: NodePool
+metadata:
+  name: blue
+  namespace: redpanda-system
+spec:
+  clusterRef:
+    name: redpanda-nodepool
+  image:
+    repository: redpandadata/redpanda
+    tag: v25.3.1
+  replicas: 3
+---
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: NodePool
+metadata:
+  name: green
+  namespace: redpanda-system
+spec:
+  clusterRef:
+    name: redpanda-nodepool
+  image:
+    repository: redpandadata/redpanda
+    tag: v25.3.1
+  replicas: 0
